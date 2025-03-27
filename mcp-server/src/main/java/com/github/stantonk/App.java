@@ -5,19 +5,14 @@ import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpServerFeatures;
 import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.transport.HttpServletSseServerTransportProvider;
-import io.modelcontextprotocol.server.transport.WebMvcSseServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.function.RouterFunction;
-import org.springframework.web.servlet.function.ServerResponse;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,24 +22,7 @@ import java.util.Map;
 public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
-
-//    @Configuration
-//    @EnableWebMvc
-//    public static class McpConfig {
-//
-//        @Bean
-//        WebMvcSseServerTransportProvider webMvcSseServerTransportProvider() {
-//            var transportProvider = new WebMvcSseServerTransportProvider(new ObjectMapper(), "/mcp/message");
-//            return transportProvider;
-//            //TODO: hmm session is null..
-////            transportProvider.setSessionFactory();
-//        }
-//
-//        @Bean
-//        RouterFunction<ServerResponse> mcpRouterFunction(WebMvcSseServerTransportProvider transportProvider) {
-//            return transportProvider.getRouterFunction();
-//        }
-//    }
+    private static final WeatherGetter weatherGetter = new WeatherGetter();
 
     public static void main(String[] args) {
         System.out.println("Starting MCP Server...");
@@ -81,9 +59,15 @@ public class App {
                 (exchange, arguments) -> {
                     Double latitude = (Double) arguments.get("latitude");
                     Double longitude = (Double) arguments.get("longitude");
-                    // Simulate weather fetching
-                    String weather = String.format("The weather at %.2f, %.2f is sunny with a temperature of 25°C", 
-                                                  latitude, longitude);
+//                    String weather = String.format("The weather at %.2f, %.2f is sunny with a temperature of 25°C",
+//                                                  latitude, longitude);
+                    var weather = "Sorry, unable to fetch weather.";
+                    try {
+                        weather = weatherGetter.getForecast(latitude, longitude);
+                    } catch (Exception e) {
+                        log.error("Unable to retrieve weather data", e);
+                        throw new RuntimeException(e);
+                    }
                     return new McpSchema.CallToolResult(List.of(new McpSchema.TextContent(weather)), false);
                 }
         );
@@ -109,6 +93,7 @@ public class App {
         // Start Jetty on port 8080
         Server server = new Server(8080);
         server.setHandler(contextHandler);
+
         try {
             server.start();
             log.info("Jetty server started on port 8080");
