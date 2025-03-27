@@ -55,7 +55,9 @@ Forecast: %s
             ));
         }
         log.info(forecastUrl);
-        return String.join("\n---\n", forecasts);
+        var fullForecast = String.join("\n---\n", forecasts);
+        log.info("{}, {}, {}", lat, lon, fullForecast);
+        return fullForecast;
     }
 
     private JsonNode makeRequest(String url) throws IOException, InterruptedException {
