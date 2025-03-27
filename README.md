@@ -3,6 +3,11 @@
 A working implementation Model Context Protocol java-sdk. Includes
 a fast-agent for the MCP Client to interact with the Weather mcp-server.
 
+⚠️This isn't remotely production grade, just demonstrating how to build
+something working end to end that can leverage multiple MCP Servers both
+local (Stdio Transport) and remote (HTTP SSE Transport). Also avoids
+pulling in as much of Spring as possible, for those who don't want it.
+
 In the demo, you'll see the agent:
 
 1. The agent uses Claude Sonnet 3.7 throughout for the LLM bits
