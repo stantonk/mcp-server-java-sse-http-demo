@@ -1,4 +1,4 @@
-# Weather MCP Service: Java Model Context Protocol (MCP) Server example
+# Weather Java SSE Transport MCP Service
 
 A working implementation Model Context Protocol java-sdk. Includes
 a fast-agent for the MCP Client to interact with the Weather mcp-server.
