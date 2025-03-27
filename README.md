@@ -1,10 +1,13 @@
 # Weather MCP Service: Java Model Context Protocol (MCP) Server example
 
-A working implementation with the 0.8.1 java-sdk. Includes
+A working implementation Model Context Protocol java-sdk. Includes
 a fast-agent for the MCP Client to interact with the Weather mcp-server.
 
 ![Description of image](docs/mcp-server-weather-demo.gif)
 
+* [Model Context Protocol](https://github.com/modelcontextprotocol)
+* [java-sdk](https://github.com/modelcontextprotocol/java-sdk)
+* [List of Model Context Protocol Servers](https://github.com/modelcontextprotocol/servers?tab=readme-ov-file#model-context-protocol-servers)
 ## build and start Weather MCP Server
 
 ```
