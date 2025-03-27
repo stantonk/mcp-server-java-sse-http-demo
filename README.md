@@ -7,7 +7,8 @@ In the demo, you'll see the agent:
 
 1. The agent uses Claude Sonnet 3.7 throughout for the LLM bits
 2. Call out to the "fetch" websearch MCP Server tool to look up lat/long for each city I asked for.
-3. Use those lat/long values to call the weather MCP Server tool (which is implemented in this repository).
+3. Use those lat/long values to call the weather MCP Server tool (implemented in this repository).
+You can see the calls being made in the upper half of the terminal split window.
 4. The agent summarizes the forecasts and determine which of the 4 cities is the warmest tomorrow.
 
 ![Description of image](docs/mcp-server-weather-demo.gif)
