@@ -43,7 +43,7 @@ Forecast: %s
         var periods = json.get("properties").get("periods");
         if (!periods.isArray()) throw new RuntimeException("Unable to retrieve weather data");
         List<String> forecasts = new ArrayList<>();
-        for (int i=0; i < 5; ++i) {
+        for (int i=0; i < periods.size(); ++i) {
             forecasts.add(String.format(
                     FORECAST_TEMPLATE,
                     periods.get(i).get("name").asText(),
@@ -75,6 +75,6 @@ Forecast: %s
         WeatherGetter weatherGetter = new WeatherGetter();
         double lat = 40.7128;
         double lon = -74.0060;
-        System.out.println(weatherGetter.getForecast(lat, lon));
+        weatherGetter.getForecast(lat, lon);
     }
 }
