@@ -36,6 +36,7 @@ java -jar java -jar mcp-server/target/mcp-server-1.0-SNAPSHOT.jar
 ```
 pip install uv
 uv pip install fast-agent-mcp
+uv run agent.py
 ```
 
 ### Configure Claude and OpenAI api keys
